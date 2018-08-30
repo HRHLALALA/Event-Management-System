@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>Post Seminar</title>
+    <link rel="stylesheet" href="../static/css/post2.css">
+</head>
+<body>
+    <div id="Top">
+        <a href="/dashboard">Back</a>
+        <div id="large_title">
+            Post Seminar<br>
+            <div id="subtitle">
+                You can post a new Seminar here.<br>
+            </div>
+        </div>
+    </div>
+    <form id="form" name="form" method="post" onsubmit="alert('Submitted successfully!')">
+        <center>
+            {% block content %}
+            {% for message in get_flashed_messages()%}
+            <div class="alert-warning">
+                {{message}}
+            </div>
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+            {% endblock %}
+            <table>
+                <tr>
+                    <td>
+                        <label for="Title">Title</label>
+                        <input type="text" name="Title" id="Title" required/>
+
+                    </td>
+                    <td>
+                        <label for="Location">Location</label>
+                        <input type="text" name="Location" id="Location" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="Start Date">Start Date</label>
+                        <input type="date" name="Start_Date" id="Start_Date" required/>
+                    </td>
+                    <td>
+                        <label for="End Date">End Date</label>
+                        <input type="date" name="End_Date" id="End_Date" required/>
+                    </td>
+                    <td>
+                        <label for="Dealine">Deregister Deadline</label>
+                        <input type="date" name="deadline" id="deadline" placeholder="until which you can not cancel the events" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="Fee">Register Fee</label>
+                        <input type="number" step="0.01" name="Fee" id="Fee" min="1" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="EB_Start Date">Early Birds Start Date</label>
+                        <input type="date" name="EB_Start_Date" id="Start_Date" required/>
+                    </td>
+                    <td>
+                        <label for="EB_End Date">Early BirdsEnd Date</label>
+                        <input type="date" name="EB_End_Date" id="End_Date" required/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="Description">Description</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <textarea name="Description" id="Description" cols="120" rows="7"required></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" name="Post_event" id="Post_event" value="Submit"  />
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </form>
+</body>
+</html>

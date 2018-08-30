@@ -1,0 +1,114 @@
+<html>
+<head>
+    <title>Post Sessions</title>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #ffffff; /*white*/
+            width: 100%;
+            height: 100%;
+        }
+
+        #Top {
+            background: #777777; /*my purple*/
+            display: table;
+            height: 50%;
+            width: 100%;
+        }
+
+        #large_title {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 70px;
+            font-weight: bold;
+            color: white;
+        }
+
+        #subtitle {
+            font-size: 25px;
+            font-weight: normal
+        }
+
+        table {
+            margin-top: 20px;
+            margin-left: 20px;
+            border: 2px solid grey;
+            /*border-collapse: collapse;*/
+            padding: 15px;
+        }
+        a {
+            color: #ffffff; /*my light purple*/
+            text-decoration: none;
+            text-align: justify;
+            font-size: 23px;
+            font-weight: normal;
+        }
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc
+        }
+    </style>
+    <div id="Top">
+        <a href="/dashboard">Back</a>
+        <div id="large_title">
+            Post Sessions<br>
+            <div id="subtitle">
+                You can post new Sessions here.<br>
+            </div>
+        </div>
+    </div>
+    <form id="form" name="form" method="post" onsubmit="alert('Submitted successfully!')">
+        <center>
+            {% block content %}
+            {% for message in get_flashed_messages()%}
+            <div class="alert-warning">
+                {{message}}
+            </div>
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+            {% endblock %}
+            <table>
+                <tr>
+                    <td>
+                        Seminar Title: {{event.title}}<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        You are posting the session number {{event.n_sessions + 1}}:<br>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="Name">Session name</label>
+                        <input type="text" name="Name" placeholder="Title" id="Name" required/>
+
+                    </td>
+                    <td>
+                        <label for="Speaker">Speaker</label>
+                        <input type="text" name="Speaker" placeholder="Real name" id="Speaker" required/>
+                    </td>
+                    <td>
+                        <label for="Capacitor">Capacitor</label>
+                        <input type="number" name="Capacitor" id="Capacitor" min="1" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" name="Post_event" id="Post_event" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </form>
+</body>
+</html>

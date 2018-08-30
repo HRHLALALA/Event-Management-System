@@ -1,0 +1,148 @@
+{% extends 'dashboard.html' %}
+{% block menu %}
+<head>
+    {% block title %}
+    <title>Event_detail</title>
+    {% endblock title %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</head>
+<form id="form" name="form" method="post">
+    <table style="width:60%" class="event">
+        <tr>
+            <td style="font-size: 30px; font-weight:bold;">{{event.title}}</td>  
+        </tr>
+        <tr>
+            <td>{{event.type}} &nbsp; - {{event.status}}</td>
+            <td><i class="fas fa-map-marker-alt"></i>&nbsp; {{event.location}}</td>
+        </tr>
+        <tr>
+            <td><i class="far fa-calendar-alt"></i>  Start - {{event.start_date.strftime('%Y-%m-%d')}}</td>
+            <td><i class="far fa-calendar-alt"></i>  End - {{event.end_date.strftime('%Y-%m-%d')}}</td>
+            <td><i class="far fa-calendar-alt"></i>  Deregister Deadline - {{event.deregister_deadline.strftime('%Y-%m-%d')}}</td>
+        </tr>   
+        <tr>
+            {% if event.type == 'Seminar'%}
+            <td><i class="fas fa-user"></i>&nbsp;  {{event.convenor}}</td>
+            {% else %}
+            <td><i class="fab fa-speakap"></i>&nbsp;  {{event.convenor}}</td>
+            {% endif %}
+            <td><i class="fas fa-male"></i>&nbsp; {{event.n_attendees}}/{{event.capacitor}}</td>
+            {% if event.type == 'Seminar'%}
+            <td>#Sessions - {{event.n_sessions}}</td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td colspan="2"><i class="fas fa-info-circle"></i> Description:</td>
+        </tr>
+        <tr>
+            <td>{{event.description}}</td>
+        </tr>
+        {% if user.id == event.convenor or user.role == "guest"%}
+        <tr>
+            <td>
+                Register Fee: {{event.fee}}
+            </td>
+            <td><i class="far fa-calendar-alt"></i> Early Bird Start - {{event.EB_start.strftime('%Y-%m-%d')}}</td>
+            <td><i class="far fa-calendar-alt"></i> Early Bird End - {{event.EB_end.strftime('%Y-%m-%d')}}</td>
+        </tr>
+        <tr>
+            <td colspan="3">Note: You will receive a 50% discount of the registration fee on this period</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td colspan="3">
+                --------------------------------------------
+            </td>
+        </tr>
+        {% for session in event.sessions%}
+        <tr>
+            <td>
+                Session name: {{session.title}}<br>
+            </td>
+            <td>
+                <i class="fab fa-speakap"></i>Speaker: {{session.speaker}}<br>
+            </td>
+            
+            
+            {% if user.id != event.convenor %}
+            <td>
+                {% if user in session.attendees and deregister==True%}
+                <a href={{url_for('register_session',seminar_tit=event.title,session_tit=session.title)}}
+                onclick="alert('You will deregister this session')">
+                        &nbsp;deregister&nbsp;
+                </a>
+                {% elif user not in session.attendees and session.is_full !=True %}
+                <a href={{url_for('register_session',seminar_tit=event.title,session_tit=session.title)}} 
+                onclick="alert('This will cost you ${{session.cal_fee(user)}}')">
+                        &nbsp;register&nbsp;
+                    </a>
+                {% endif %}
+            </td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td><i class="fas fa-male"></i>&nbsp; {{session.n_attendees}}/{{session.capacitor}}</td>
+        </tr>
+        {% if user.id == event.convenor and event.type =='Seminar'%}
+        <tr>
+            <td>
+                <i class="fas fa-users"></i> Attendees:<br>
+            </td>
+        </tr>
+        {% for user in session.attendees %}
+        <tr>
+            <td>
+                {{user.name}}
+            </td>
+        </tr>
+        {% endfor %}
+        {%endif%}
+        <tr>
+            <td colspan="3">
+                --------------------------------------------
+            </td>
+        </tr>
+        {% endfor %}
+
+        <tr> 
+            {% if event.type =='Seminar' and user.id != event.convenor%}
+            {% else %}
+            <td>
+                {% if enable %}
+                <input type="submit" name={{mode}} value={{mode}}
+                    {% if mode == 'register' %}
+                    onclick="alert('This will cost you ${{event.cal_fee(user)}}')" 
+                    {% else %}
+                    onclick="alert('{{mode}} successfully!')"
+                    {%endif %} 
+                />
+                {% else %}
+                <input type="submit" name={{mode}} value={{mode}} disabled/>
+                {% endif %}
+            </td>
+            {% endif %}
+            {%if event.type =='Seminar' and user.id == event.convenor %}
+            <td>
+                <a href={{url_for('post_session', title= event.title)}}><button style="cursor: pointer" type="button" {%if event.status !="OPEN" %}disabled{% endif %}>Add a session</button></a>
+            </td>
+            {% endif %}
+        </tr>
+        {% if user.id == event.convenor and event.type =='Course'%}
+        <tr>
+            <td>
+                <i class="fas fa-users"></i> Attendees:<br>
+            </td>
+        </tr>
+        {% for user in event.attendees %}
+        <tr>
+            <td>
+                {{user.name}}
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</form>
+{% block show_all %}
+{% endblock show_all%}
+{% endblock menu %}

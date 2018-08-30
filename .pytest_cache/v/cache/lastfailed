@@ -1,0 +1,4 @@
+{
+  "tests.py::test_check_jackson_fee": true,
+  "tests.py::test_sesson_register_trainee_attendee": true
+}

@@ -1,0 +1,142 @@
+<html>
+<head>
+    {% block title %}
+    <title>DashBoard</title>
+    {% endblock title %}
+    <link rel="stylesheet" href="../static/css/dashboard2.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+</head>
+<body>
+    <div id="Menu">
+        <table id="navigation_bar">
+            <tr>
+                <td>
+                    <svg width="180" height="29" id="logo">
+                        <rect width="170" height="29" rx="10" ry="10" style="fill:#563D7C;stroke-width:1;stroke:#ffffff" />
+                        <text fill="#ffffff" font-size="25" font-family="'Roboto', sans-serif" x="10" y="25">&nbsp;Dashboard</text>
+                    </svg>
+                </td>
+                {% if request.path  == '/dashboard' %}
+                <td>
+                    <a_blod href="/dashboard">&nbsp;Open Events&nbsp;</a_blod>
+                </td>
+                {% else %}
+                <td>
+                    <a href="/dashboard">&nbsp;Open Events&nbsp;</a>
+                </td>
+                {% endif %}
+                {% if request.path  == '/Registered_Event' %}
+                <td>
+                    <a_blod href="/Registered_Event">&nbsp;Registered Events&nbsp;</a_blod>
+                </td>
+                {% else %}
+                <td>
+                    <a href="/Registered_Event">&nbsp;Registered Events&nbsp;</a>
+                </td>
+                {% endif %}
+                {% if user.role == 'trainer' %}
+                {% if request.path  == '/Posted_Event' %}
+                <td>
+                    <a_blod href="/Posted_Event">&nbsp;Posted Events&nbsp;</a_blod>
+                </td>
+                {% else %}
+                <td>
+                    <a href="/Posted_Event">&nbsp;Posted Events&nbsp;</a>
+                </td>
+                {% endif %}
+                
+                {% if request.path  == '/Canceled_Event' %}
+                <td>
+                    <a_blod href="/Canceled_Event">&nbsp;Canceled Events&nbsp;</a_blod>
+                </td>
+                {% else %}
+                <td>
+                    <a href="/Canceled_Event">&nbsp;Canceled Events&nbsp;</a>
+                </td>
+                {% endif %}
+                
+                <td>
+                    <a href="/Post_Course">&nbsp;New Course&nbsp;</a>
+                </td>
+                <td>
+                    <a href="/Post_Seminar">&nbsp;New Seminar&nbsp;</a>
+                </td>
+                {% endif %}
+                <td id="show_user">
+                    Hello, {{user.name}}!<br>
+                </td>
+                <td id="user_logout">
+                    <a href="/sign-up">&nbsp;Logout&nbsp;</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% block menu %}{% endblock menu%}
+    {% block show_all %}
+    <center>
+            {% block content %}
+            {% for message in get_flashed_messages()%}
+            <div class="alert-warning">
+                {{message}}
+            </div>
+            {% endfor %}
+            {% block page_content %}{% endblock %}
+            {% endblock %}
+    </center>
+    <div id="left">
+        <h2 class="title"><i class="fas fa-columns"></i> Course</h2>
+        {% for event in Events %}
+        {% if event.type == 'Course'%}
+        <table class="event" align="center">
+            <tr>
+                <td><a href={{url_for("event_details",title=event.title)}} id="Course_title">{{event.title}}</a></td>
+            </tr>
+            <tr>
+                <td>{{event.type}} &nbsp; - {{event.status}}</td>
+                <td><i class="fas fa-map-marker-alt"></i>&nbsp; {{event.location}}</td>
+            </tr>
+            <tr>
+                <td><i class="far fa-calendar-alt"></i>  Start - {{event.start_date.strftime('%Y-%m-%d')}}</td>
+                <td><i class="far fa-calendar-alt"></i>  End - {{event.end_date.strftime('%Y-%m-%d')}}</td>
+            </tr>
+            <tr>
+                <td><i class="fab fa-speakap"></i>&nbsp;  {{event.convenor}}</td>
+                <td><i class="fas fa-male"></i>&nbsp; {{event.n_attendees}}/{{event.capacitor}}</td>
+            </tr>
+        </table>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div id="right">
+        <h2 class="title"><i class="fas fa-columns"></i> Seminar</h2>
+        {% for event in Events %}
+        {% if event.type == 'Seminar'%}
+        <table class="event" align="center">
+            <tr>
+                <td><a href={{url_for("event_details",title=event.title)}} id="Course_title">{{event.title}}</a></td>        
+            </tr>
+            <tr>
+                <td>{{event.type}} &nbsp; - {{event.status}}</td>
+                <td><i class="fas fa-map-marker-alt"></i>&nbsp; {{event.location}}</td>
+            </tr>
+            <tr>
+                <td><i class="far fa-calendar-alt"></i>  Start - {{event.start_date.strftime('%Y-%m-%d')}}</td>
+                <td><i class="far fa-calendar-alt"></i>  End - {{event.end_date.strftime('%Y-%m-%d')}}</td>
+            </tr>
+            <tr>
+                <td><i class="fas fa-user"></i>&nbsp; Convenor- {{event.convenor}}</td>
+                <td><i class="fas fa-male"></i>&nbsp; {{event.n_attendees}}/{{event.capacitor}}</td>
+            </tr>
+        </table>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endblock show_all%}
+</body>
+</html>
+
+
+<!--
+{% block body %}
+{% endblock %}
+-->

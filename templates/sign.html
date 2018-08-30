@@ -1,0 +1,125 @@
+
+<html>
+<head>
+    <title>Event Management System</title>
+</head>
+<body background={{url_for('static',filename='star1.jpg')}}>
+    <h1 class="h1">Event Management System</h1>
+    <style>
+        #nav {
+            margin: auto auto;
+            width: 300px;
+            text-align: left;
+            font-size: 30px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: white;
+        }
+
+        #submit {
+            margin: auto auto;
+            width: 300px;
+            text-align: left;
+            font-size: 30px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color: yellow;
+        }
+
+        #container {
+            margin: 15 auto;
+            width: 300px;
+            text-align: left;
+            font-size: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+            color: rgb(170, 21, 78);
+        }
+
+        .form {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            width: 300px;
+            height: 40px;
+            font-size: 24px;
+        }
+
+        .submit {
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            width: 300px;
+            height: 50px;
+            background: blue;
+            border: solid black;
+            cursor: pointer;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .h1 {
+            font-size:50px;
+            text-align:center;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color:rgb(248, 245, 245);
+        }
+        .h2 {
+            font-size:40px;
+            text-align:center;
+            color:white;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+        }
+        .h3 {
+            font-size:30px;
+            text-align:center;
+            color:white;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; 
+        }
+    </style>
+    <h2 class="h2">Welcome</h2>
+    <h3 class="h3">
+        {% if request.path  == '/' %}
+        Log in
+        {%else%}
+        Sign up
+        {%endif%}
+
+    </h3>
+    <form method="post" {%if user_type == 'guest'%} onsubmit="alert('Your details are submitted successfully!')" {%endif%}>
+        <div id="nav">
+            E-mail:<br>
+            <input type="text" name="Username" placeholder="Your E-mail" class="form" required>
+            <br>
+            Password:<br>
+            <input type="password" name="password" placeholder="Your password" class="form" required><br>
+            {% if request.path != '/'%}
+            Name:<br>
+            <input type="text" name="real_name" placeholder="Have to be real" class="form" required>
+            <br>
+            {%endif%}
+        </div>
+        <div id="container">
+            {% block content %}
+            {% for message in get_flashed_messages()%}
+            {{message}}
+            {% endfor %}
+            {% block page_content %}
+            {% endblock %}
+            {% endblock %}
+        </div>
+        <div id="submit">
+            {% if request.path  == '/' %}
+                <input type="submit" value = "Log In" class="submit"><br>
+            <a href={{url_for('guest_form')}}>
+                <button style="cursor: pointer" type="button" class="submit" >Guest Sign Up</button>
+            </a>
+            {%else%}
+                <input type="submit" value = "Sign Up" class="submit"><br>
+            <a href={{url_for('login')}}>
+                <button style="cursor: pointer" type="button" class="submit" >Back to Log in</button>
+            </a>
+            {%endif%}
+        </div>
+    </form>
+</body>
+</html>
+
+
+
+
