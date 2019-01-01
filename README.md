@@ -1,4 +1,4 @@
--# segmentation-fault
+# segmentation-fault
 
 Event Management system
 
