@@ -1,6 +1,10 @@
 # Event Management system
 ## Team: Segmentation Fault
 
+## Framework
+Frontend: HTML,CSS,Django
+Backend: Python Flask, Flask-SQLAlchemy
+
 ## Member Assignment
 
 Front-End Part: Yiwei Zhang
@@ -9,6 +13,7 @@ Back-End Part: Renhao Huang
 
 ## Preliminary Requirements from UNSW
 The events organised in the university can be grouped broadly into two categories namely courses and seminars. 
+
 Each event is scheduled at a particular venue and can run for a single day or over a period of days. Each event has a maximum attendee capacity. Each scheduled event has a de-register window period up and until which a registered attendee is allowed to de-register from the event, e.g., a course ‘photo- shop’ can be cancelled up to 24 hours before the scheduled date’.
 A course is delivered by a single presenter who will also post the event on the EMS. A seminar consists of multiple sessions and each session can be presented by a UNSW academic or a non-UNSW guest-speaker e.g., “7th Australasian Symposium on Big Data & Analytics” is a seminar which runs from 2nd of October, 2018 to 3rd of October, 2018 and consists of sessions such as ‘Using Machine Learning to analyse financial data’, ‘Semantic ontologies for financial data analysis’, ‘Predictive Analytics’. A seminar is posted on the
 EMS by a convenor, who may or may not be a speaker at one of the sessions. The system should provide different forms to handle the posting of the above two types of events.
@@ -18,6 +23,13 @@ Only UNSW staff are allowed to post (i.e., convene) events. Both UNSW staff and 
 
  At any point in time, an event can be ‘open’, ‘closed’ or ‘cancelled’. Any event which is scheduled to run in the future or currently running is said to be ‘open’. Once an event has been completed, the course convenor will change the status of the event to ‘closed’. If an event is cancelled before the scheduled-date, then it is said to be ‘cancelled’.
 The customer has also advised your team that they are still unsure of all their requirements, but these are their preliminary requirements. They would refine their requirements after seeing an initial version of the software system. Keeping this in mind, your consultancy firm has decided that this project will be delivered adopting an agile software development methodology to give the team flexibility to be able to adapt to the customer changes.
+
+## Default member
+Type: Trainer
+name="aaa",zid="aaa",id="aaa",password="aaa"
+
+Type: Trainee
+name="bbb",zid="bbb",id="bbb",password="bbb"
 
 ## Contributions:(most of)
 1. html files(htmls,css) are by Yiwei Zhang
