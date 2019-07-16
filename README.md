@@ -24,7 +24,7 @@ Only UNSW staff are allowed to post (i.e., convene) events. Both UNSW staff and 
  At any point in time, an event can be ‘open’, ‘closed’ or ‘cancelled’. Any event which is scheduled to run in the future or currently running is said to be ‘open’. Once an event has been completed, the course convenor will change the status of the event to ‘closed’. If an event is cancelled before the scheduled-date, then it is said to be ‘cancelled’.
 The customer has also advised your team that they are still unsure of all their requirements, but these are their preliminary requirements. They would refine their requirements after seeing an initial version of the software system. Keeping this in mind, your consultancy firm has decided that this project will be delivered adopting an agile software development methodology to give the team flexibility to be able to adapt to the customer changes.
 
-## Default member
+## Default Account
 Type: Trainer
 name="aaa",zid="aaa",id="aaa",password="aaa"
 
